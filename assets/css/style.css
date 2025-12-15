@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+/* --- GLOBAL BACKGROUND & CLOUDS --- */
+body {
+    min-height: 100vh;
+    color: white;
+    /* Background Gambar + Overlay Gelap */
+    background: linear-gradient(to bottom, rgba(15, 32, 39, 0.7), rgba(44, 83, 100, 0.7)), url('../images/banner.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* FIX: Awan dikembalikan dengan posisi FIXED dan Z-Index yang benar */
+body::before {
+    content: '';
+    position: fixed; /* Tetap di layar walau discroll */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://freepngimg.com/thumb/cloud/7-cloud-png-image.png');
+    background-size: cover;
+    opacity: 0.3; /* Transparansi pas */
+    animation: awanGerak 80s linear infinite;
+    z-index: -1; /* Di belakang konten */
+    pointer-events: none;
+}
+@keyframes awanGerak { from { background-position: 0 0; } to { background-position: 1000px 0; } }
+
+/* --- LAYOUT LOGIN/INDEX (Tengah) --- */
+body.center-mode { display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+
+.glass-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 40px; border-radius: 20px; text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    width: 380px; position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- DASHBOARD ELEMENTS --- */
+.navbar {
+    background: rgba(0, 0, 0, 0.3); /* Gelap transparan biar menu jelas */
+    backdrop-filter: blur(10px); padding: 15px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100;
+}
+.nav-brand { font-size: 1.5em; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.nav-links a { color: #ddd; text-decoration: none; margin-left: 20px; transition: 0.3s; }
+.nav-links a:hover { color: #00f2fe; }
+
+.hero-section { padding: 60px 20px; text-align: center; position: relative; }
+
+/* PANEL SEARCH (Tetap Cerah/White Glass sesuai request) */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.1); /* Cerah */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Border Tegas */
+    border-radius: 20px; padding: 30px;
+    max-width: 900px; margin: 0 auto; /* Supaya ga raksasa */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+.glass-panel:hover {
+    transform: scale(1.02); /* Membesar dikit saat hover */
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+/* Input Form */
+.form-input {
+    width: 100%; padding: 12px;
+    background: rgba(0,0,0,0.4); /* Input agak gelap biar tulisan putih jelas */
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; color: white; outline: none;
+}
+.form-group label { font-size: 0.9em; color: #fff; margin-bottom: 5px; display: block; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+/* --- FIX TOMBOL SEARCH GLOWING & LEBAR --- */
+
+.btn-search {
+    grid-column: span 3; /* KUNCI: Supaya tombol melebar memenuhi 3 kolom form */
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 50px; /* Dibuat lebih bulat biar modern */
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    color: white;
+    
+    /* Warna Dasar Gradient */
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* EFEK GLOWING SAAT HOVER */
+.btn-search:hover {
+    transform: translateY(-2px) scale(1.02); /* Naik & Membesar dikit */
+    background: linear-gradient(45deg, #00f2fe, #4facfe); /* Tukar warna */
+    box-shadow: 
+        0 0 20px #00f2fe, 
+        0 0 40px rgba(0, 242, 254, 0.4); /* Efek Neon Kuat */
+}
+.btn-start { padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; }
+
+/* --- SECTION CONTENT (FIX: Dark Theme & Big Icons) --- */
+.section-container {
+    padding: 50px; max-width: 1100px; margin: 30px auto;
+    background: rgba(0, 0, 0, 0.4); /* Background Gelap Pembungkus */
+    border-radius: 20px; backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.promo-card {
+    background: rgba(30, 30, 30, 0.8); /* FIX: Kartu Gelap */
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 25px; border-radius: 15px; transition: 0.3s;
+}
+.promo-card:hover { transform: translateY(-5px); border-color: #4facfe; background: rgba(0,0,0,0.9); }
+
+/* FIX: Ikon Dibesarkan */
+.feature-item { text-align: center; padding: 20px; }
+.feature-icon {
+    font-size: 4em; /* DIBESARKAN JADI 4em */
+    margin-bottom: 20px; color: #4facfe;
+    filter: drop-shadow(0 0 10px rgba(79,172,254,0.6));
+}
+
+.section-title { font-size: 2em; margin-bottom: 5px; color: white; }
+.section-subtitle { color: #ccc; margin-bottom: 30px; }
+.badge { background: #ff6b6b; padding: 5px 12px; border-radius: 5px; font-size: 0.7em; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+.logo-icon { width: 70px; height: 70px; fill: #00f2fe; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(0,242,254,0.5)); }
+
+.booking-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; text-align: left; }
+.flight-type { display: flex; gap: 10px; margin-bottom: 20px; }
+.type-btn { padding: 8px 20px; background: rgba(255,255,255,0.2); border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
+.type-btn.active { background: #fff; color: #4facfe; font-weight: bold; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+footer { background: rgba(0,0,0,0.8); padding: 40px; margin-top: 50px; text-align: center; color: #aaa; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
