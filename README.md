@@ -76,7 +76,15 @@ git status
 ```
 3. Upload Perubahan (Save & Upload)
 Lakukan ini setelah fitur yang kalian kerjakan selesai.
+**Buat Branch baru**
+```Bash
 
+git branch [nama branch]
+git checkout [nama branch]
+git checkout -b [nama branch] #kalau branch belum dibuat samasekali
+```
+
+**Membuat commit**
 ```Bash
 
 # Tandai semua file yang berubah
@@ -86,7 +94,7 @@ git add .
 git commit -m "Menambahkan fitur login admin"
 
 # Kirim ke GitHub
-git push origin main
+git push -u origin [nama branch kalian]
 ```
 
 ### ⚠️ Jika Terjadi Konflik (Merge Conflict)
