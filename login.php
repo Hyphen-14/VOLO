@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include 'koneksi.php'; 
+include 'config/koneksi.php'; 
 
 if(isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -8,6 +8,7 @@ if(isset($_POST['login'])) {
     $query = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
     if(mysqli_num_rows($query) > 0){
         $data = mysqli_fetch_assoc($query);
+        $_SESSION['user_id'] = $data['id'];
         $_SESSION['username'] = $data['username'];
         $_SESSION['role'] = $data['role'];
         $_SESSION['status'] = "login";
@@ -56,7 +57,11 @@ if(isset($_POST['login'])) {
             <button type="submit" name="login" class="btn-search" style="margin-top: 0;">Login</button>
         </form>
 
-        <a href="index.php" style="display: block; margin-top: 20px; font-size: 0.8em; color: #ccc; text-decoration: none;">← Back to Home</a>
+        <div style="margin-top: 20px; font-size: 0.8em; color: #ccc;">
+            Don't have an account? <a href="register.php" style="color: #00f2fe; text-decoration: none; font-weight: bold;">Register</a>
+            <br><br>
+            <a href="index.php" style="display: block; margin-top: 20px; font-size: 0.8em; color: #ccc; text-decoration: none;">← Back to Home</a>
+        </div>
     </div>
 
 </body>

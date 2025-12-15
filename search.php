@@ -2,6 +2,8 @@
 session_start();
 include 'config/koneksi.php';
 
+$trip_type = $_GET['trip_type'] ?? 'one_way';
+$return_date = $_GET['return_date'] ?? '';
 $origin = $_GET['origin'] ?? '';
 $destination = $_GET['destination'] ?? '';
 $query = "SELECT * FROM flights WHERE origin LIKE '%$origin%' AND destination LIKE '%$destination%'";
@@ -18,7 +20,12 @@ $result = mysqli_query($conn, $query);
 <body>
 
     <nav class="navbar">
-        <div class="nav-brand">VOLO</div>
+        <div class="nav-brand">
+            <svg style="width: 24px; height: 24px; fill: #00f2fe; margin-right: 10px;" viewBox="0 0 24 24">
+                <path d="M21,16v-2l-8-5V3.5c0-0.83-0.67-1.5-1.5-1.5S10,2.67,10,3.5V9l-8,5v2l8-2.5V19l-2,1.5V22l3.5-1l3.5,1v-1.5L13,19v-5.5L21,16z"/>
+            </svg>
+            VOLO
+        </div>
         <div class="nav-links">
             <a href="dashboard.php">← Back to Dashboard</a>
         </div>
@@ -66,9 +73,18 @@ $result = mysqli_query($conn, $query);
                             <h3 style="color: #00f2fe; margin-bottom: 10px; font-size: 1.3em;">
                                 IDR <?= number_format($row['price']); ?>
                             </h3>
-                            <a href="#" class="btn-search" style="padding: 10px 30px; font-size: 0.9em; text-decoration: none; width: auto;">
-                                Choose
-                            </a>
+
+                            <?php if($trip_type == 'round_trip' && !empty($return_date)): ?>
+                                <a href="search_return.php?depart_id=<?= $row['id']; ?>&origin=<?= $destination; ?>&destination=<?= $origin; ?>&date=<?= $return_date; ?>" 
+                                class="btn-search" style="padding: 10px 30px; font-size: 0.9em; text-decoration: none; width: auto; background: linear-gradient(45deg, #ffd700, #ffaa00);">
+                                    Select Return ➝
+                                </a>
+                            <?php else: ?>
+                                <a href="booking_confirm.php?flight_id=<?= $row['id']; ?>" 
+                                class="btn-search" style="padding: 10px 30px; font-size: 0.9em; text-decoration: none; width: auto;">
+                                    Choose
+                                </a>
+                            <?php endif; ?>
                         </div>
 
                     </div>

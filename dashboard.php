@@ -1,11 +1,13 @@
 <?php
 session_start();
+include 'config/koneksi.php';
 // Cek Login
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("Location: login.php");
     exit;
 }
 $nama_user = $_SESSION['username'];
+$promo_query = mysqli_query($conn, "SELECT * FROM promos");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +26,7 @@ $nama_user = $_SESSION['username'];
             VOLO
         </div>
         <div class="nav-links">
-            <a href="#">My Booking</a>
+            <a href="my_tickets.php">My Booking</a>
             <a href="#">Promo</a>
             <a href="#">Help Center</a>
             <span style="color:rgba(255,255,255,0.3); margin:0 15px;">|</span>
@@ -43,7 +45,8 @@ $nama_user = $_SESSION['username'];
                 <div class="type-btn">Pulang Pergi</div>
             </div>
 
-            <form action="search.php" method="GET" class="booking-form">
+            <form action="search.php" method="GET" class="booking-form" id="searchForm">
+                <input type="hidden" name="trip_type" id="trip_type" value="one_way">
                 <div class="form-group">
                     <label>From</label>
                     <input type="text" name="origin" class="form-input" placeholder="Ex: Jakarta" required>
@@ -62,7 +65,7 @@ $nama_user = $_SESSION['username'];
                 </div>
                 <div class="form-group">
                     <label>Return</label>
-                    <input type="date" class="form-input" disabled style="opacity:0.5; cursor: not-allowed;">
+                    <input type="date" name="return_date" id="return_date" class="form-input" disabled style="opacity:0.5; cursor: not-allowed;">
                 </div>
                 <div class="form-group">
                     <label>Class</label>
@@ -82,24 +85,29 @@ $nama_user = $_SESSION['username'];
         <p class="section-subtitle">Don't miss out on these limited time offers.</p>
 
         <div class="grid-3">
-            <div class="promo-card">
-                <span class="badge">20% OFF</span>
-                <h3 style="margin: 10px 0;">New Year Fly</h3>
-                <p style="font-size:0.8em; color:#ccc; margin-bottom:15px;">Fly to Singapore with special price.</p>
-                <button style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">Claim</button>
-            </div>
-            <div class="promo-card">
-                <span class="badge" style="background:#00f2fe; color:black;">CASHBACK</span>
-                <h3 style="margin: 10px 0;">Weekend Vibes</h3>
-                <p style="font-size:0.8em; color:#ccc; margin-bottom:15px;">Get IDR 100k cashback for weekend flights.</p>
-                <button style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">Claim</button>
-            </div>
-             <div class="promo-card">
-                <span class="badge" style="background:#ffd700; color:black;">VIP</span>
-                <h3 style="margin: 10px 0;">Business Upgrade</h3>
-                <p style="font-size:0.8em; color:#ccc; margin-bottom:15px;">Free lounge access for new members.</p>
-                <button style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">Claim</button>
-            </div>
+            <?php while($promo = mysqli_fetch_assoc($promo_query)): ?>
+                
+                <?php 
+                    $badgeColor = "#4facfe"; // Default Blue
+                    $badgeText = "DISKON";
+                    if($promo['image_color'] == 'yellow') { $badgeColor = "#ffd700"; $badgeText = "HOT DEAL"; }
+                    if($promo['image_color'] == 'red') { $badgeColor = "#ff6b6b"; $badgeText = "LIMITED"; }
+                ?>
+
+                <div class="promo-card">
+                    <span class="badge" style="background: <?= $badgeColor; ?>; color: black;"><?= $badgeText; ?></span>
+                    <h3 style="margin: 10px 0;"><?= $promo['code']; ?></h3>
+                    <p style="font-size:0.8em; color:#ccc; margin-bottom:15px;"><?= $promo['description']; ?></p>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #00f2fe; font-weight: bold;">- IDR <?= number_format($promo['discount_amount']/1000); ?>K</span>
+                        <button onclick="navigator.clipboard.writeText('<?= $promo['code']; ?>'); alert('Code Copied: <?= $promo['code']; ?>')" 
+                                style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            <?php endwhile; ?>
         </div>
     </section>
 
@@ -127,6 +135,40 @@ $nama_user = $_SESSION['username'];
         <p>&copy; 2025 VOLO Flight Systems. All rights reserved.</p>
         <p style="font-size: 0.8em; margin-top: 10px;">Malang, Indonesia • support@volo.com</p>
     </footer>
+    <script>
+        // Ambil elemen
+        const btnOneWay = document.querySelector('.type-btn:nth-child(1)');
+        const btnRoundTrip = document.querySelector('.type-btn:nth-child(2)');
+        const returnInput = document.getElementById('return_date');
+        const tripTypeInput = document.getElementById('trip_type');
 
+        // Klik Sekali Jalan
+        btnOneWay.addEventListener('click', () => {
+            btnOneWay.classList.add('active');
+            btnRoundTrip.classList.remove('active');
+            
+            // Matikan input tanggal pulang
+            returnInput.disabled = true;
+            returnInput.style.opacity = "0.5";
+            returnInput.style.cursor = "not-allowed";
+            returnInput.value = ""; // Kosongkan
+            
+            tripTypeInput.value = "one_way";
+        });
+
+        // Klik Pulang Pergi
+        btnRoundTrip.addEventListener('click', () => {
+            btnRoundTrip.classList.add('active');
+            btnOneWay.classList.remove('active');
+            
+            // Hidupkan input tanggal pulang
+            returnInput.disabled = false;
+            returnInput.style.opacity = "1";
+            returnInput.style.cursor = "text";
+            
+            tripTypeInput.value = "round_trip";
+        });
+    </script>
 </body>
+
 </html>
