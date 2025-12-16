@@ -1,12 +1,22 @@
 <?php
 session_start();
 include 'config/koneksi.php';
+
 // Cek Login
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("Location: login.php");
     exit;
 }
 $nama_user = $_SESSION['username'];
+
+// 1. DATA AUTOCOMPLETE (Ambil kota unik dari database untuk saran ketikan)
+$data_origin = mysqli_query($conn, "SELECT DISTINCT origin FROM flights");
+$data_dest = mysqli_query($conn, "SELECT DISTINCT destination FROM flights");
+
+// 2. DATA POPULAR FLIGHTS (Ambil 3 penerbangan termurah sebagai rekomendasi)
+$populer_query = mysqli_query($conn, "SELECT * FROM flights ORDER BY price ASC LIMIT 3");
+
+// 3. DATA PROMO
 $promo_query = mysqli_query($conn, "SELECT * FROM promos");
 ?>
 
@@ -47,14 +57,27 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promos");
 
             <form action="search.php" method="GET" class="booking-form" id="searchForm">
                 <input type="hidden" name="trip_type" id="trip_type" value="one_way">
+                
                 <div class="form-group">
                     <label>From</label>
-                    <input type="text" name="origin" class="form-input" placeholder="Ex: Jakarta" required>
+                    <input type="text" name="origin" list="list_origin" class="form-input" placeholder="Ex: Jakarta" required autocomplete="off">
+                    <datalist id="list_origin">
+                        <?php while($kota = mysqli_fetch_assoc($data_origin)): ?>
+                            <option value="<?= $kota['origin']; ?>">
+                        <?php endwhile; ?>
+                    </datalist>
                 </div>
+
                 <div class="form-group">
                     <label>To</label>
-                    <input type="text" name="destination" class="form-input" placeholder="Ex: Bali" required>
+                    <input type="text" name="destination" list="list_dest" class="form-input" placeholder="Ex: Bali" required autocomplete="off">
+                    <datalist id="list_dest">
+                        <?php while($kota = mysqli_fetch_assoc($data_dest)): ?>
+                            <option value="<?= $kota['destination']; ?>">
+                        <?php endwhile; ?>
+                    </datalist>
                 </div>
+
                 <div class="form-group">
                     <label>Passengers</label>
                     <input type="number" name="passengers" class="form-input" value="1" min="1">
@@ -80,31 +103,75 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promos");
         </div>
     </section>
 
+    <section class="section-container" style="margin-top: -40px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+            <div>
+                <h2 class="section-title">Popular Routes 🌟</h2>
+                <p class="section-subtitle">Trending destinations loved by travelers.</p>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <?php while($row = mysqli_fetch_assoc($populer_query)): ?>
+                
+                <div class="promo-card" style="position: relative; border-left: 4px solid #00f2fe;">
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span class="badge" style="background: rgba(0, 242, 254, 0.2); color: #00f2fe; border: 1px solid #00f2fe;">Best Price</span>
+                        <span style="font-size: 0.8em; color: #aaa;">Direct Flight</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                        <?php if(!empty($row['image_url'])): ?>
+                            <img src="<?= $row['image_url']; ?>" alt="Logo" style="width: 24px; height: 24px; object-fit: contain; border-radius: 50%;">
+                        <?php else: ?>
+                            <span>✈️</span>
+                        <?php endif; ?>
+                        
+                        <h3 style="font-size: 1.1em;"><?= $row['origin']; ?> ➝ <?= $row['destination']; ?></h3>
+                    </div>
+                    
+                    <p style="font-size: 0.9em; color: #ccc; margin-left: 34px;"><?= $row['airline']; ?></p>
+
+                    <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.2);"></div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="font-size: 0.7em; color: #aaa;">Start from</p>
+                            <h3 style="color: #00f2fe;">IDR <?= number_format($row['price']/1000); ?>K</h3>
+                        </div>
+                        
+                        <a href="search.php?origin=<?= $row['origin']; ?>&destination=<?= $row['destination']; ?>&date=<?= date('Y-m-d'); ?>&passengers=1&class=economy" 
+                           class="btn-search" 
+                           style="width: auto; margin: 0; padding: 8px 20px; font-size: 0.9em; text-decoration: none;">
+                           Book
+                        </a>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </section>
+
     <section class="section-container">
         <h2 class="section-title">Special Deals 🔥</h2>
         <p class="section-subtitle">Don't miss out on these limited time offers.</p>
 
         <div class="grid-3">
             <?php while($promo = mysqli_fetch_assoc($promo_query)): ?>
-                
                 <?php 
-                    $badgeColor = "#4facfe"; // Default Blue
+                    $badgeColor = "#4facfe"; 
                     $badgeText = "DISKON";
                     if($promo['image_color'] == 'yellow') { $badgeColor = "#ffd700"; $badgeText = "HOT DEAL"; }
                     if($promo['image_color'] == 'red') { $badgeColor = "#ff6b6b"; $badgeText = "LIMITED"; }
                 ?>
-
                 <div class="promo-card">
                     <span class="badge" style="background: <?= $badgeColor; ?>; color: black;"><?= $badgeText; ?></span>
                     <h3 style="margin: 10px 0;"><?= $promo['code']; ?></h3>
                     <p style="font-size:0.8em; color:#ccc; margin-bottom:15px;"><?= $promo['description']; ?></p>
-                    
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span style="color: #00f2fe; font-weight: bold;">- IDR <?= number_format($promo['discount_amount']/1000); ?>K</span>
                         <button onclick="navigator.clipboard.writeText('<?= $promo['code']; ?>'); alert('Code Copied: <?= $promo['code']; ?>')" 
-                                style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">
-                            Copy
-                        </button>
+                                style="background:transparent; border:1px solid #4facfe; color:#4facfe; padding:5px 15px; border-radius:15px; cursor:pointer;">Copy</button>
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -135,40 +202,33 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promos");
         <p>&copy; 2025 VOLO Flight Systems. All rights reserved.</p>
         <p style="font-size: 0.8em; margin-top: 10px;">Malang, Indonesia • support@volo.com</p>
     </footer>
+
     <script>
-        // Ambil elemen
         const btnOneWay = document.querySelector('.type-btn:nth-child(1)');
         const btnRoundTrip = document.querySelector('.type-btn:nth-child(2)');
         const returnInput = document.getElementById('return_date');
         const tripTypeInput = document.getElementById('trip_type');
 
-        // Klik Sekali Jalan
         btnOneWay.addEventListener('click', () => {
             btnOneWay.classList.add('active');
             btnRoundTrip.classList.remove('active');
-            
-            // Matikan input tanggal pulang
             returnInput.disabled = true;
             returnInput.style.opacity = "0.5";
             returnInput.style.cursor = "not-allowed";
-            returnInput.value = ""; // Kosongkan
-            
+            returnInput.value = "";
             tripTypeInput.value = "one_way";
         });
 
-        // Klik Pulang Pergi
         btnRoundTrip.addEventListener('click', () => {
             btnRoundTrip.classList.add('active');
             btnOneWay.classList.remove('active');
-            
-            // Hidupkan input tanggal pulang
             returnInput.disabled = false;
             returnInput.style.opacity = "1";
             returnInput.style.cursor = "text";
-            
             tripTypeInput.value = "round_trip";
         });
     </script>
 </body>
-
 </html>
+message.txt
+12 KB
