@@ -12,7 +12,8 @@ $user_id = $_SESSION['user_id'];
 
 // CORE LOGIC: JOIN TABLE
 // Kita ambil data booking milik user ini, DAN ambil detail pesawatnya sekaligus
-$query = "SELECT bookings.*, flights.airline, flights.code, flights.origin, flights.destination, flights.departure_time, flights.arrival_time 
+$query = "SELECT bookings.*, flights.airline, flights.code, flights.origin, flights.destination, 
+          flights.departure_time, flights.arrival_time, flights.image_url
           FROM bookings 
           JOIN flights ON bookings.flight_id = flights.id 
           WHERE bookings.user_id = '$user_id' 
@@ -54,7 +55,13 @@ $result = mysqli_query($conn, $query);
                     <div class="promo-card" style="display: flex; justify-content: space-between; align-items: center; padding: 30px; border-left: 5px solid #00f2fe;">
                         
                         <div style="display: flex; align-items: center; gap: 20px;">
-                            <div style="font-size: 2em;">✈️</div>
+                            
+                            <?php if(!empty($row['image_url'])): ?> <img src="<?= $row['image_url']; ?>" alt="Logo" 
+                                     style="width: 60px; height: 60px; object-fit: contain; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 50%;">
+                            <?php else: ?>
+                                <div style="font-size: 2em;">✈️</div>
+                            <?php endif; ?>
+
                             <div>
                                 <h3 style="margin: 0;"><?= $row['airline']; ?></h3>
                                 <p style="font-size: 0.9em; color: #aaa;"><?= $row['code']; ?></p>
