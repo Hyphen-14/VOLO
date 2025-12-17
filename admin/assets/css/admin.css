@@ -1,0 +1,407 @@
+/* ===============================
+   GLOBAL
+================================ */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url("../images/airport-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #E2E8F0;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* ===============================
+   DASHBOARD GRID
+================================ */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ============= HEADER START ======================= */
+/* ===============================
+   HEADER / NAVBAR
+================================ */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 80px;
+  padding: 0 24px;
+
+  background: #0f172a;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+
+  margin-left: 250px; /* asumsi sidebar */
+}
+
+/* LEFT HEADER */
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dashboard {
+  font-size: 22px;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.welcome-message {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 2px 0 0;
+}
+
+/* RIGHT HEADER */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding-right: 20px;
+}
+
+/* ===============================
+   SEARCH BAR
+================================ */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 320px;
+  height: 40px;
+  padding: 0 16px;
+
+  background: rgba(255, 255, 255, 0.10);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.search-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.search-bar-text {
+  font-weight: 500;
+  color: #E5E7EB;
+}
+
+/* ===============================
+   NOTIFICATION
+================================ */
+.notification {
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.notification img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: invert(100%);
+}
+
+.notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
+/* ===============================
+   USER PROFILE
+================================ */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: #38bdf8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.user-role {
+  font-size: 13px;
+  color: #94a3b8;
+}
+/* ============= HEADER END ======================= */
+
+/* ============= SIDEBAR START ======================= */
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 250px;
+  height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    #0f172a 0%,
+    #020617 100%
+  );
+
+  border-right: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+/* =========================
+   BRAND
+========================= */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+
+  background: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-icon img {
+  width: 22px;
+  height: 22px;
+  filter: invert(100%);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.brand-sub {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+.sidebar-nav {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(56,189,248,0.12);
+  color: #f8fafc;
+}
+
+/* ACTIVE */
+.nav-item.active {
+  background: linear-gradient(
+    90deg,
+    rgba(56,189,248,0.28),
+    rgba(56,189,248,0.08)
+  );
+  color: #38bdf8;
+}
+
+/* =========================
+   ICON
+========================= */
+.nav-icon {
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(75%);
+}
+
+/* icon active */
+.nav-item.active .nav-icon img {
+  filter: invert(65%) sepia(30%) saturate(500%)
+          hue-rotate(165deg);
+}
+
+.nav-text {
+  flex: 1;
+}
+
+.logout-btn .nav-icon img {
+  filter: invert(32%) sepia(90%) saturate(5000%)
+          hue-rotate(340deg) brightness(95%) contrast(105%);
+}
+
+.logout-btn:hover .nav-icon img {
+  filter: invert(32%) sepia(100%) saturate(6000%)
+          hue-rotate(340deg) brightness(105%) contrast(110%);
+}
+
+/* =========================
+   LOGOUT
+========================= */
+.sidebar-logout {
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  color: #ef4444;
+  text-decoration: none;
+  font-weight: 500;
+
+  transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(239,68,68,0.15);
+}
+/* ============= HEADER END ======================= */
+
+/* ===============================
+   CARDS
+================================ */
+.card {
+  background: #0f172a;
+  border-radius: 16px;
+  border: 0.5px solid #262d3d;
+
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #ffffff;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.card-value {
+  font-size: 28px;
+  margin: 6px 0;
+}
+
+.card-change {
+  font-size: 13px;
+}
+
+.card-change.positive {
+  color: #22c55e;
+}
+
+.card-change.negative {
+  color: #ef4444;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  background: #0ea5e9;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+}
