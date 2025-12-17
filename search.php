@@ -45,17 +45,14 @@ $result = mysqli_query($conn, $query);
                         
                         <div style="display: flex; align-items: center; gap: 20px;">
                             
-                            <?php if(!empty($row['image_url'])): ?>
-                                <img src="<?= $row['image_url']; ?>" alt="<?= $row['airline']; ?>" 
+                            <?php if(!empty($row['image_url'])): ?> <img src="<?= $row['image_url']; ?>" alt="Logo" 
                                      style="width: 60px; height: 60px; object-fit: contain; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 50%;">
                             <?php else: ?>
-                                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 50%; font-size: 1.5em;">
-                                    ✈️
-                                </div>
+                                <div style="font-size: 2em;">✈️</div>
                             <?php endif; ?>
 
                             <div>
-                                <h3 style="margin: 0; font-size: 1.2em;"><?= $row['airline']; ?></h3>
+                                <h3 style="margin: 0;"><?= $row['airline']; ?></h3>
                                 <p style="font-size: 0.9em; color: #aaa;"><?= $row['code']; ?></p>
                             </div>
                         </div>

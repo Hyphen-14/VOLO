@@ -57,17 +57,29 @@ if($grand_total < 0) $grand_total = 0; // Jangan sampai minus
 // --- LOGIKA SIMPAN KE DATABASE ---
 if (isset($_POST['confirm_booking'])) {
     $user_id = $_SESSION['user_id'];
-    
-    // Simpan Tiket Berangkat
-    mysqli_query($conn, "INSERT INTO bookings (user_id, flight_id, status) VALUES ('$user_id', '$depart_id', 'paid')");
-    
-    // Simpan Tiket Pulang (Kalau ada)
+
+    // INSERT BOOKING BERANGKAT
+    mysqli_query($conn, "
+        INSERT INTO bookings (user_id, flight_id, status)
+        VALUES ('$user_id', '$depart_id', 'waiting payment')
+    ");
+
+    // ambil booking_id utama
+    $booking_id = mysqli_insert_id($conn);
+
+    // INSERT BOOKING PULANG (JIKA ADA)
     if ($return_id) {
-        mysqli_query($conn, "INSERT INTO bookings (user_id, flight_id, status) VALUES ('$user_id', '$return_id', 'paid')");
+        mysqli_query($conn, "
+            INSERT INTO bookings (user_id, flight_id, status)
+            VALUES ('$user_id', '$return_id', 'waiting payment')
+        ");
     }
 
-    echo "<script>alert('Booking Success!'); window.location = 'my_tickets.php';</script>";
+    // redirect ke payment
+    header("Location: payment.php?booking_id=$booking_id");
+    exit;
 }
+
 ?>
 
 <!DOCTYPE html>

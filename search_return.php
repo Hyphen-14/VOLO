@@ -43,11 +43,10 @@ $result = mysqli_query($conn, $query);
                         
                         <div style="display: flex; align-items: center; gap: 20px;">
                             
-                            <?php if(!empty($row['image_url'])): ?>
-                                <img src="<?= $row['image_url']; ?>" alt="<?= $row['airline']; ?>" 
-                                     style="width: 50px; height: 50px; object-fit: contain; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%;">
+                            <?php if(!empty($row['image_url'])): ?> <img src="<?= $row['image_url']; ?>" alt="Logo" 
+                                     style="width: 60px; height: 60px; object-fit: contain; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 50%;">
                             <?php else: ?>
-                                <div style="font-size: 1.5em;">✈️</div>
+                                <div style="font-size: 2em;">✈️</div>
                             <?php endif; ?>
 
                             <div>
