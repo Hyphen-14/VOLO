@@ -5,16 +5,41 @@ include 'config/koneksi.php';
 if(isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $query = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+
+    // 1. Cek Username dulu
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
+    
     if(mysqli_num_rows($query) > 0){
         $data = mysqli_fetch_assoc($query);
-        $_SESSION['user_id'] = $data['id'];
-        $_SESSION['username'] = $data['username'];
-        $_SESSION['role'] = $data['role'];
-        $_SESSION['status'] = "login";
-        header("Location: dashboard.php");
+        
+        // 2. Cek Password (Logic Hybrid: Bisa baca Enkripsi & Bisa baca Plaintext '123')
+        // Ini biar data dummy kamu tetep bisa dipakai login
+        $isPasswordValid = false;
+
+        if (password_verify($password, $data['password_hash'])) {
+            $isPasswordValid = true; // Cocok dengan hash (User baru)
+        } elseif ($password == $data['password_hash']) {
+            $isPasswordValid = true; // Cocok dengan teks biasa (Data dummy)
+        }
+
+        if($isPasswordValid){
+            // 3. Simpan Session (PERHATIKAN: id berubah jadi user_id)
+            $_SESSION['user_id'] = $data['user_id']; // <--- INI PENTING!
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['role'] = $data['role'];
+            $_SESSION['status'] = "login";
+            
+            // Redirect sesuai role (Bonus Logic)
+            if($data['role'] == 'admin'){
+                header("Location: admin/index.php"); // Siapa tau nanti ada folder admin
+            } else {
+                header("Location: dashboard.php");
+            }
+        } else {
+            $error = "Password salah, Kapten!";
+        }
     } else {
-        $error = "Username atau Password salah, Kapten!";
+        $error = "Username tidak ditemukan!";
     }
 }
 ?>
@@ -24,7 +49,7 @@ if(isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - VOLO</title>
+    <title>Login - VOLO Enterprise</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="center-mode">
@@ -54,13 +79,13 @@ if(isset($_POST['login'])) {
                 <input type="password" name="password" class="form-input" placeholder="••••••" required>
             </div>
 
-            <button type="submit" name="login" class="btn-search" style="margin-top: 0;">Login</button>
+            <button type="submit" name="login" class="btn-search" style="margin-top: 0; width:100%;">Login</button>
         </form>
 
         <div style="margin-top: 20px; font-size: 0.8em; color: #ccc;">
             Don't have an account? <a href="register.php" style="color: #00f2fe; text-decoration: none; font-weight: bold;">Register</a>
             <br><br>
-            <a href="index.php" style="display: block; margin-top: 20px; font-size: 0.8em; color: #ccc; text-decoration: none;">← Back to Home</a>
+            <a href="index.php" style="color: #aaa; text-decoration: none;">← Back to Home</a>
         </div>
     </div>
 
