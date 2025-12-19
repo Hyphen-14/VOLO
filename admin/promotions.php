@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOLO Admin Panel - Manage Flights</title>
+    <title>VOLO Admin Panel - Airports</title>
     <link rel="stylesheet" href="/volo/admin/assets/css/admin.css">
 </head>
 <body>
-
-<div class="admin-layout">
+    <div class="admin-layout">
 
     
     <aside class="sidebar">
@@ -34,7 +33,7 @@
             <span class="nav-text">Dashboard</span>
             </a>
 
-            <a href="/volo/admin/manage-flights.php" class="nav-item active">
+            <a href="/volo/admin/manage-flights.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airplane.png" alt="Manage Flights">
             </span>
@@ -69,7 +68,7 @@
             <span class="nav-text">Ticket Prices</span>
             </a>
 
-            <a href="/volo/admin/promotions.php" class="nav-item">
+            <a href="/volo/admin/promotions.php" class="nav-item active">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/promotions.png" alt="Promotions">
             </span>
@@ -108,8 +107,8 @@
 
         <!-- LEFT -->
         <div class="header-left">
-            <h1 class="page-title">Manage Flights</h1>
-            <p class="page-subtitle">Manage and monitor all flight schedules</p>
+            <h1 class="page-title">Promotions</h1>
+            <p class="page-subtitle">Welcome back, Administrator</p>
         </div>
 
         <!-- RIGHT -->
@@ -155,22 +154,18 @@
 
         </div>
         </header>
-
-        <!-- ===== MANAGE FLIGHTS CONTENT ===== -->
         <main class="page-content">
-
-            <!-- Flights Section -->
             <section class="content-section">
                 <div class="section-header">
                     <div class="section-title-group">
-                        <h2 class="section-title">All Flights</h2>
-                        <p class="section-subtitle">Manage and monitor all flight schedules</p>
+                        <h2 class="section-title">Promo Codes</h2>
+                        <p class="section-subtitle">Manage promotional discounts and offers</p>
                     </div>
                     <button class="btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Add Flight
+                        Create Promo
                     </button>
                 </div>
 
@@ -179,26 +174,22 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>FLIGHT CODE</th>
-                                <th>AIRLINE</th>
-                                <th>FROM</th>
-                                <th>TO</th>
-                                <th>DEPARTURE</th>
-                                <th>ARRIVAL</th>
-                                <th>AIRCRAFT</th>
+                                <th>PROMO CODE</th>
+                                <th>DISCOUNT</th>
+                                <th>TYPE</th>
+                                <th>START DATE</th>
+                                <th>END DATE</th>
                                 <th>STATUS</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-semibold">VL-101</td>
-                                <td>Garuda Indonesia</td>
-                                <td>CGK</td>
-                                <td>DPS</td>
-                                <td>08:00</td>
-                                <td>10:30</td>
-                                <td>Boeing 737-800</td>
+                                <td style="font-weight: 600; color: #06b6d4;">SUMMER24</td>
+                                <td class="font-semibold">15%</td>
+                                <td class="font-semibold">Percentage</td>
+                                <td class="font-semibold">2024-06-01</td>
+                                <td class="font-semibold">2024-08-31</td>
                                 <td><span class="status-badge active">Active</span></td>
                                 <td>
                                     <div class="action-buttons">
@@ -218,13 +209,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-205</td>
-                                <td>Lion Air</td>
-                                <td>SUB</td>
-                                <td>CGK</td>
-                                <td>09:15</td>
-                                <td>11:00</td>
-                                <td>Airbus A320</td>
+                                <td style="font-weight: 600; color: #06b6d4;">NEWUSER50</td>
+                                <td class="font-semibold">IDR 50.000</td>
+                                <td class="font-semibold">Fixed</td>
+                                <td class="font-semibold">2024-01-01</td>
+                                <td class="font-semibold">2024-12-31</td>
                                 <td><span class="status-badge active">Active</span></td>
                                 <td>
                                     <div class="action-buttons">
@@ -244,14 +233,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-342</td>
-                                <td>Citilink</td>
-                                <td>DPS</td>
-                                <td>JOG</td>
-                                <td>14:30</td>
-                                <td>15:45</td>
-                                <td>ATR 72-600</td>
-                                <td><span class="status-badge cancelled">Cancelled</span></td>
+                                <td style="font-weight: 600; color: #06b6d4;">HOLIDAY10</td>
+                                <td class="font-semibold">10%</td>
+                                <td class="font-semibold">Percentage</td>
+                                <td class="font-semibold">2024-12-20</td>
+                                <td class="font-semibold">2025-01-05</td>
+                                <td><span class="status-badge upcoming">Upcoming</span></td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -270,14 +257,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-418</td>
-                                <td>Batik Air</td>
-                                <td>CGK</td>
-                                <td>MES</td>
-                                <td>16:00</td>
-                                <td>18:30</td>
-                                <td>Boeing 737 MAX</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td style="font-weight: 600; color: #06b6d4;">FLASH25</td>
+                                <td class="font-semibold">25%</td>
+                                <td class="font-semibold">Percentage</td>
+                                <td class="font-semibold">2024-03-01</td>
+                                <td class="font-semibold">2024-03-15</td>
+                                <td><span class="status-badge expired">Expired</span></td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -296,13 +281,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-512</td>
-                                <td>Sriwijaya Air</td>
-                                <td>JOG</td>
-                                <td>CGK</td>
-                                <td>07:00</td>
-                                <td>08:15</td>
-                                <td>Boeing 737-500</td>
+                                <td style="font-weight: 600; color: #06b6d4;">LOYAL100</td>
+                                <td class="font-semibold">IDR 100.000</td>
+                                <td class="font-semibold">FIXED</td>
+                                <td class="font-semibold">2024-01-01</td>
+                                <td class="font-semibold">2024-12-31</td>
                                 <td><span class="status-badge active">Active</span></td>
                                 <td>
                                     <div class="action-buttons">
@@ -325,10 +308,7 @@
                     </table>
                 </div>
             </section>
-
         </main>
     </div>
-</div>
-
 </body>
 </html>

@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOLO Admin Panel - Manage Flights</title>
+    <title>VOLO Admin Panel - Airports</title>
     <link rel="stylesheet" href="/volo/admin/assets/css/admin.css">
 </head>
 <body>
-
-<div class="admin-layout">
+    <div class="admin-layout">
 
     
     <aside class="sidebar">
@@ -34,7 +33,7 @@
             <span class="nav-text">Dashboard</span>
             </a>
 
-            <a href="/volo/admin/manage-flights.php" class="nav-item active">
+            <a href="/volo/admin/manage-flights.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airplane.png" alt="Manage Flights">
             </span>
@@ -55,7 +54,7 @@
             <span class="nav-text">Airports</span>
             </a>
 
-            <a href="/volo/admin/aircraft-and-seat.php" class="nav-item">
+            <a href="/volo/admin/aircraft-and-seat.php" class="nav-item active">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/aircraft-and-seat.png" alt="Aircraft & Seats">
             </span>
@@ -108,8 +107,8 @@
 
         <!-- LEFT -->
         <div class="header-left">
-            <h1 class="page-title">Manage Flights</h1>
-            <p class="page-subtitle">Manage and monitor all flight schedules</p>
+            <h1 class="page-title">Aircraft & Seats</h1>
+            <p class="page-subtitle">Welcome back, Administrator</p>
         </div>
 
         <!-- RIGHT -->
@@ -155,22 +154,18 @@
 
         </div>
         </header>
-
-        <!-- ===== MANAGE FLIGHTS CONTENT ===== -->
         <main class="page-content">
-
-            <!-- Flights Section -->
             <section class="content-section">
                 <div class="section-header">
                     <div class="section-title-group">
-                        <h2 class="section-title">All Flights</h2>
-                        <p class="section-subtitle">Manage and monitor all flight schedules</p>
+                        <h2 class="section-title">Aircraft Fleet</h2>
+                        <p class="section-subtitle">Manage aircraft types and configurations</p>
                     </div>
                     <button class="btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Add Flight
+                        Add Aircraft
                     </button>
                 </div>
 
@@ -179,27 +174,19 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>FLIGHT CODE</th>
-                                <th>AIRLINE</th>
-                                <th>FROM</th>
-                                <th>TO</th>
-                                <th>DEPARTURE</th>
-                                <th>ARRIVAL</th>
-                                <th>AIRCRAFT</th>
-                                <th>STATUS</th>
+                                <th>AIRCRAFT NAME</th>
+                                <th>TOTAL SEATS</th>
+                                <th>ECONOMY</th>
+                                <th>BUSINESS</th>
                                 <th>ACTIONS</th>
-                            </tr>
+                            </tr>   
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-semibold">VL-101</td>
-                                <td>Garuda Indonesia</td>
-                                <td>CGK</td>
-                                <td>DPS</td>
-                                <td>08:00</td>
-                                <td>10:30</td>
-                                <td>Boeing 737-800</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">Boeing 737-800</td>
+                                <td class="font-semibold">189</td>
+                                <td class="font-semibold">165 seats</td>
+                                <td style="color: #06b6d4;">27 seats</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -218,14 +205,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-205</td>
-                                <td>Lion Air</td>
-                                <td>SUB</td>
-                                <td>CGK</td>
-                                <td>09:15</td>
-                                <td>11:00</td>
-                                <td>Airbus A320</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">Airbus A320</td>
+                                <td class="font-semibold">180</td>
+                                <td class="font-semibold">156 seats</td>
+                                <td style="color: #06b6d4;">24 seats</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -244,14 +227,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-342</td>
-                                <td>Citilink</td>
-                                <td>DPS</td>
-                                <td>JOG</td>
-                                <td>14:30</td>
-                                <td>15:45</td>
-                                <td>ATR 72-600</td>
-                                <td><span class="status-badge cancelled">Cancelled</span></td>
+                                <td class="font-semibold">Boeing 737 MAX 8</td>
+                                <td class="font-semibold">178</td>
+                                <td class="font-semibold">150 seats</td>
+                                <td style="color: #06b6d4;">28 seats</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -270,14 +249,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-418</td>
-                                <td>Batik Air</td>
-                                <td>CGK</td>
-                                <td>MES</td>
-                                <td>16:00</td>
-                                <td>18:30</td>
-                                <td>Boeing 737 MAX</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">ATR 72-600</td>
+                                <td class="font-semibold">72</td>
+                                <td class="font-semibold">72 seats</td>
+                                <td style="color: #06b6d4;">0 seats</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -296,14 +271,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-512</td>
-                                <td>Sriwijaya Air</td>
-                                <td>JOG</td>
-                                <td>CGK</td>
-                                <td>07:00</td>
-                                <td>08:15</td>
-                                <td>Boeing 737-500</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">Airbus A330-300</td>
+                                <td class="font-semibold">277</td>
+                                <td class="font-semibold">225 seats</td>
+                                <td style="color: #06b6d4;">52 seats</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -325,10 +296,7 @@
                     </table>
                 </div>
             </section>
-
         </main>
     </div>
-</div>
-
 </body>
 </html>

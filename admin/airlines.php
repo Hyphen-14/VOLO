@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOLO Admin Panel - Manage Flights</title>
+    <title>VOLO Admin Panel - Airlines</title>
     <link rel="stylesheet" href="/volo/admin/assets/css/admin.css">
 </head>
 <body>
-
-<div class="admin-layout">
+    <div class="admin-layout">
 
     
     <aside class="sidebar">
@@ -34,14 +33,14 @@
             <span class="nav-text">Dashboard</span>
             </a>
 
-            <a href="/volo/admin/manage-flights.php" class="nav-item active">
+            <a href="/volo/admin/manage-flights.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airplane.png" alt="Manage Flights">
             </span>
             <span class="nav-text">Manage Flights</span>
             </a>
 
-            <a href="/volo/admin/airlines.php" class="nav-item">
+            <a href="/volo/admin/airlines.php" class="nav-item active">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airlines.png" alt="Airlines">
             </span>
@@ -108,8 +107,8 @@
 
         <!-- LEFT -->
         <div class="header-left">
-            <h1 class="page-title">Manage Flights</h1>
-            <p class="page-subtitle">Manage and monitor all flight schedules</p>
+            <h1 class="page-title">Airlines Management</h1>
+            <p class="page-subtitle">Welcome back, Administrator</p>
         </div>
 
         <!-- RIGHT -->
@@ -155,22 +154,18 @@
 
         </div>
         </header>
-
-        <!-- ===== MANAGE FLIGHTS CONTENT ===== -->
         <main class="page-content">
-
-            <!-- Flights Section -->
             <section class="content-section">
                 <div class="section-header">
                     <div class="section-title-group">
-                        <h2 class="section-title">All Flights</h2>
-                        <p class="section-subtitle">Manage and monitor all flight schedules</p>
+                        <h2 class="section-title">All Airlines</h2>
+                        <p class="section-subtitle">Manage airline partners</p>
                     </div>
                     <button class="btn-primary">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        Add Flight
+                        Add Airline
                     </button>
                 </div>
 
@@ -179,27 +174,19 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>FLIGHT CODE</th>
-                                <th>AIRLINE</th>
-                                <th>FROM</th>
-                                <th>TO</th>
-                                <th>DEPARTURE</th>
-                                <th>ARRIVAL</th>
-                                <th>AIRCRAFT</th>
-                                <th>STATUS</th>
+                                <th></th>
+                                <th>AIRLINE NAME</th>
+                                <th>CODE</th>
+                                <th>COUNTRY</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-semibold">VL-101</td>
-                                <td>Garuda Indonesia</td>
-                                <td>CGK</td>
-                                <td>DPS</td>
-                                <td>08:00</td>
-                                <td>10:30</td>
-                                <td>Boeing 737-800</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Garuda Indonesia</td>
+                                <td class="airline-code-box blue">GA</td>
+                                <td class="font-semibold">Indonesia</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -218,14 +205,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-205</td>
-                                <td>Lion Air</td>
-                                <td>SUB</td>
-                                <td>CGK</td>
-                                <td>09:15</td>
-                                <td>11:00</td>
-                                <td>Airbus A320</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Lion Air</td>
+                                <td class="airline-code-box blue">JT</td>
+                                <td class="font-semibold">Indonesia</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -244,14 +227,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-342</td>
-                                <td>Citilink</td>
-                                <td>DPS</td>
-                                <td>JOG</td>
-                                <td>14:30</td>
-                                <td>15:45</td>
-                                <td>ATR 72-600</td>
-                                <td><span class="status-badge cancelled">Cancelled</span></td>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Citilink</td>
+                                <td class="airline-code-box blue">QG</td>
+                                <td class="font-semibold">Indonesia</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -270,14 +249,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-418</td>
-                                <td>Batik Air</td>
-                                <td>CGK</td>
-                                <td>MES</td>
-                                <td>16:00</td>
-                                <td>18:30</td>
-                                <td>Boeing 737 MAX</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Batik Air</td>
+                                <td class="airline-code-box blue">ID</td>
+                                <td class="font-semibold">Indonesia</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -296,14 +271,32 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">VL-512</td>
-                                <td>Sriwijaya Air</td>
-                                <td>JOG</td>
-                                <td>CGK</td>
-                                <td>07:00</td>
-                                <td>08:15</td>
-                                <td>Boeing 737-500</td>
-                                <td><span class="status-badge active">Active</span></td>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Sriwijaya Air</td>
+                                <td class="airline-code-box blue">SJ</td>
+                                <td class="font-semibold">Indonesia</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="Edit">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                            </svg>
+                                        </button>
+                                        <button class="btn-icon btn-icon-danger" title="Delete">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="3 6 5 6 21 6"/>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">ICON</td>
+                                <td class="font-semibold">Air Asia</td>
+                                <td class="airline-code-box blue">QZ</td>
+                                <td class="font-semibold">Indonesia</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn-icon" title="Edit">
@@ -325,10 +318,7 @@
                     </table>
                 </div>
             </section>
-
         </main>
     </div>
-</div>
-
 </body>
 </html>
