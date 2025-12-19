@@ -41,49 +41,49 @@
             <span class="nav-text">Manage Flights</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/airlines.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airlines.png" alt="Airlines">
             </span>
             <span class="nav-text">Airlines</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/airports.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/airports.png" alt="Airports">
             </span>
             <span class="nav-text">Airports</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/aircraft-and-seat.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/aircraft-and-seat.png" alt="Aircraft & Seats">
             </span>
             <span class="nav-text">Aircraft & Seats</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/ticket-prices.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/ticket-prices.png" alt="Ticket Prices">
             </span>
             <span class="nav-text">Ticket Prices</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/promotions.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/promotions.png" alt="Promotions">
             </span>
             <span class="nav-text">Promotions</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/booking.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/booking.png" alt="Bookings">
             </span>
             <span class="nav-text">Bookings</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="/volo/admin/payment.php" class="nav-item">
             <span class="nav-icon">
                 <img src="/volo/admin/assets/images/payment.png" alt="Payments">
             </span>
