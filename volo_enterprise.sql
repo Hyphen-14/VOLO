@@ -99,6 +99,7 @@ CREATE TABLE `bookings` (
   `booking_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `status` ENUM('pending','waiting_payment','paid','cancelled') DEFAULT 'pending',
   `total_amount` DECIMAL(12,2) NOT NULL,
+  `total_passengers` INT DEFAULT 1,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
