@@ -2,13 +2,21 @@
 session_start();
 include 'config/koneksi.php';
 
+// Tambahkan passengers
 $trip_type = $_GET['trip_type'] ?? 'one_way';
 $return_date = $_GET['return_date'] ?? '';
 $origin = $_GET['origin'] ?? '';
 $destination = $_GET['destination'] ?? '';
 $class_type = $_GET['class'] ?? 'Economy'; 
+$passengers = $_GET['passengers'] ?? 1; // <--- DEFAULT 1 JIKA KOSONG
 
-// QUERY FINAL (Fixed: Airline Name & Airport ID)
+// ROUND TRIP
+if (!empty($return_date)) {
+    $trip_type = 'round_trip';
+}
+// -------------------------------------------
+
+// QUERY UTAMA (Menampilkan Penerbangan Berangkat)
 $query = "SELECT 
             f.flight_id, f.flight_number, f.departure_time, f.arrival_time,
             dep.city AS origin_city, arr.city AS dest_city, 
@@ -48,7 +56,14 @@ $result = mysqli_query($conn, $query);
 
     <div class="section-container" style="margin-top: 50px; background: transparent; border: none;">
         <h2 class="section-title">Flight Results ✈</h2>
-        <p class="section-subtitle">Showing <b><?= $class_type; ?></b> class from <b><?= $origin ?></b> to <b><?= $destination ?></b></p>
+        <p class="section-subtitle">
+            Showing <b><?= $class_type; ?></b> flights from <b><?= $origin ?></b> to <b><?= $destination ?></b>
+            <?php if($trip_type == 'round_trip'): ?>
+                <span style="background: #ffd700; color: #000; padding: 2px 8px; border-radius: 5px; font-size: 0.8em; font-weight: bold; margin-left: 10px;">
+                    ROUND TRIP (Return: <?= $return_date; ?>)
+                </span>
+            <?php endif; ?>
+        </p>
 
         <div style="display: flex; flex-direction: column; gap: 20px;">
             <?php if(mysqli_num_rows($result) > 0): ?>
@@ -64,7 +79,16 @@ $result = mysqli_query($conn, $query);
                                 <?php endif; ?>
                             </div>
                             <div>
-                                <h3 style="margin: 0;"><?= $row['airline_name']; ?></h3> 
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <h3 style="margin: 0;"><?= $row['airline_name']; ?></h3>
+                                    <?php 
+                                        $badgeColor = "#4facfe"; 
+                                        if($class_type == 'Business') $badgeColor = "#ffd700"; 
+                                    ?>
+                                    <span style="background: <?= $badgeColor; ?>; color: black; font-size: 0.7em; padding: 2px 8px; border-radius: 5px; font-weight: bold;">
+                                        <?= strtoupper($class_type); ?>
+                                    </span>
+                                </div>
                                 <p style="font-size: 0.9em; color: #aaa;"><?= $row['flight_number']; ?></p>
                             </div>
                         </div>
@@ -81,25 +105,26 @@ $result = mysqli_query($conn, $query);
 
                         <div style="text-align: right;">
                             <h3 style="color: #00f2fe; margin-bottom: 10px;">IDR <?= number_format($row['price']); ?></h3>
+                            
                             <?php if($trip_type == 'round_trip' && !empty($return_date)): ?>
-                                <a href="search_return.php?depart_id=<?= $row['flight_id']; ?>&origin=<?= $destination; ?>&destination=<?= $origin; ?>&date=<?= $return_date; ?>&class=<?= $class_type; ?>" 
-                                   class="btn-search" style="padding: 10px 30px; background: linear-gradient(45deg, #ffd700, #ffaa00);">
-                                   Select Return ➝
+                                <a href="search_return.php?depart_id=<?= $row['flight_id']; ?>&origin=<?= $destination; ?>&destination=<?= $origin; ?>&date=<?= $return_date; ?>&class=<?= $class_type; ?>&passengers=<?= $passengers; ?>" 
+                                class="btn-search" style="padding: 10px 30px; background: linear-gradient(45deg, #ffd700, #ffaa00); color: black; font-weight: bold;">
+                                Select Return ➝
                                 </a>
                             <?php else: ?>
-                                <a href="booking_confirm.php?flight_id=<?= $row['flight_id']; ?>&class=<?= $class_type; ?>" 
-                                   class="btn-search" style="padding: 10px 30px;">
-                                   Choose
+                                <a href="booking_confirm.php?flight_id=<?= $row['flight_id']; ?>&class=<?= $class_type; ?>&passengers=<?= $passengers; ?>" 
+                                class="btn-search" style="padding: 10px 30px;">
+                                Choose
                                 </a>
                             <?php endif; ?>
                         </div>
-
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
                 <div class="promo-card" style="text-align: center; color: #ff6b6b; padding: 50px;">
                     <h3>No Flights Found 😢</h3>
                     <p>Try changing the class or date.</p>
+                    <a href="dashboard.php" style="color: #aaa; margin-top: 10px; display: inline-block;">Back to Dashboard</a>
                 </div>
             <?php endif; ?>
         </div>

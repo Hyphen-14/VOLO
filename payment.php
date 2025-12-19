@@ -42,7 +42,6 @@ $total_price = $data['total_amount']; // Ambil dari tabel bookings (sudah termas
 <meta charset="UTF-8">
 <title>Payment - VOLO</title>
 <style>
-/* CSS Temanmu Disini (Biarkan Saja) */
 body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); color: #fff; }
 .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: rgba(0,0,0,0.35); backdrop-filter: blur(10px); }
 .logo { font-size: 22px; font-weight: bold; letter-spacing: 2px; }

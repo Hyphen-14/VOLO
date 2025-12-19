@@ -13,7 +13,7 @@ if(isset($_POST['login'])) {
         $data = mysqli_fetch_assoc($query);
         
         // 2. Cek Password (Logic Hybrid: Bisa baca Enkripsi & Bisa baca Plaintext '123')
-        // Ini biar data dummy kamu tetep bisa dipakai login
+        // Ini biar data dummy tetep bisa dipakai login
         $isPasswordValid = false;
 
         if (password_verify($password, $data['password_hash'])) {
@@ -23,15 +23,15 @@ if(isset($_POST['login'])) {
         }
 
         if($isPasswordValid){
-            // 3. Simpan Session (PERHATIKAN: id berubah jadi user_id)
-            $_SESSION['user_id'] = $data['user_id']; // <--- INI PENTING!
+            // 3. Simpan Session : id berubah jadi user_id
+            $_SESSION['user_id'] = $data['user_id']; 
             $_SESSION['username'] = $data['username'];
             $_SESSION['role'] = $data['role'];
             $_SESSION['status'] = "login";
             
-            // Redirect sesuai role (Bonus Logic)
+            // Redirect sesuai role 
             if($data['role'] == 'admin'){
-                header("Location: admin/dashboard.php"); // Siapa tau nanti ada folder admin
+                header("Location: admin/dashboard.php"); 
             } else {
                 header("Location: dashboard.php");
             }

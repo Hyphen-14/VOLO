@@ -10,7 +10,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
 
 $user_id = $_SESSION['user_id'];
 
-// CORE LOGIC: JOIN TABLE (Versi Bersih & Enterprise)
+// CORE LOGIC: JOIN TABLE
 $query = "SELECT 
             b.booking_id, b.status, b.total_amount, b.booking_date,
             f.flight_number, f.departure_time, f.arrival_time,
@@ -54,14 +54,20 @@ $result = mysqli_query($conn, $query);
 
     <div class="section-container" style="margin-top: 50px; background: transparent; border: none;">
         <h2 class="section-title">My Tickets 🎫</h2>
-        <p class="section-subtitle">Your upcoming and past flights.</p>
+        <p class="section-subtitle">Manage your bookings and payments.</p>
 
         <div style="display: flex; flex-direction: column; gap: 20px;">
             
             <?php if(mysqli_num_rows($result) > 0): ?>
                 
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="promo-card" style="display: flex; justify-content: space-between; align-items: center; padding: 30px; border-left: 5px solid #00f2fe;">
+                    <?php 
+                        $borderColor = "#00f2fe"; // Default Paid
+                        if($row['status'] == 'waiting_payment') $borderColor = "#ffd700"; // Kuning
+                        if($row['status'] == 'cancelled') $borderColor = "#ff6b6b"; // Merah
+                    ?>
+
+                    <div class="promo-card" style="display: flex; justify-content: space-between; align-items: center; padding: 30px; border-left: 5px solid <?= $borderColor; ?>;">
                         
                         <div style="display: flex; align-items: center; gap: 20px;">
                             <div style="width: 60px; height: 60px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
@@ -84,7 +90,7 @@ $result = mysqli_query($conn, $query);
                                     <div style="font-weight: bold; font-size: 1.2em;"><?= date('H:i', strtotime($row['departure_time'])); ?></div>
                                     <div style="font-size: 0.8em; color: #aaa;"><?= $row['origin_city']; ?> (<?= $row['origin_code']; ?>)</div>
                                 </div>
-                                <div style="color: #4facfe;">➝</div>
+                                <div style="color: <?= $borderColor; ?>;">➝</div>
                                 <div style="text-align: left;">
                                     <div style="font-weight: bold; font-size: 1.2em;"><?= date('H:i', strtotime($row['arrival_time'])); ?></div>
                                     <div style="font-size: 0.8em; color: #aaa;"><?= $row['dest_city']; ?> (<?= $row['dest_code']; ?>)</div>
@@ -95,34 +101,39 @@ $result = mysqli_query($conn, $query);
                             </div>
                         </div>
 
-                        <div style="text-align: right;">
-                            <p style="font-size: 0.8em; color: #aaa;">Booking ID: #<?= $row['booking_id']; ?></p>
+                        <div style="text-align: right; min-width: 150px;">
+                            <p style="font-size: 0.8em; color: #aaa; margin-bottom: 5px;">Booking ID: #<?= $row['booking_id']; ?></p>
                             
                             <?php 
-                                $statusColor = "gray";
-                                if($row['status'] == 'paid') $statusColor = "#00ff88"; 
-                                if($row['status'] == 'waiting_payment') $statusColor = "#ffd700";
-                                if($row['status'] == 'pending') $statusColor = "gray";
-                                if($row['status'] == 'cancelled') $statusColor = "#ff6b6b";
+                                $statusBadge = "gray";
+                                if($row['status'] == 'paid') $statusBadge = "#00ff88"; 
+                                if($row['status'] == 'waiting_payment') $statusBadge = "#ffd700";
+                                if($row['status'] == 'cancelled') $statusBadge = "#ff6b6b";
                             ?>
-                            <span class="badge" style="background: <?= $statusColor; ?>; color: black; font-size: 0.9em; margin-bottom: 10px; display: inline-block;">
-                                <?= strtoupper($row['status']); ?>
+                            <span class="badge" style="background: <?= $statusBadge; ?>; color: black; font-size: 0.8em; margin-bottom: 10px; display: inline-block; font-weight: bold;">
+                                <?= strtoupper(str_replace('_', ' ', $row['status'])); ?>
                             </span>
+                            <br>
 
                             <?php if($row['status'] == 'waiting_payment'): ?>
-                                <br>
-                                <a href="payment.php?booking_id=<?= $row['booking_id']; ?>" class="btn-search" style="padding: 5px 15px; font-size: 0.8em; width: auto; margin-top: 5px;">
-                                    Pay Now
+                                <a href="payment.php?booking_id=<?= $row['booking_id']; ?>" class="btn-search" style="padding: 8px 20px; font-size: 0.8em; width: 100%; display:inline-block; margin-bottom: 5px; background: linear-gradient(45deg, #ffd700, #ffaa00); color: black;">
+                                    Pay Now 💳
                                 </a>
-                            <?php endif; ?>
-
-                            <?php if($row['status'] != 'cancelled' && $row['status'] != 'paid'): ?>
                                 <br>
                                 <a href="ticket_cancel.php?id=<?= $row['booking_id']; ?>" 
-                                   onclick="return confirm('Are you sure want to cancel this flight?')"
-                                   style="font-size: 0.8em; color: #ff6b6b; text-decoration: none; border: 1px solid #ff6b6b; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 5px;">
-                                   Cancel
+                                   onclick="return confirm('Are you sure want to cancel this booking?')"
+                                   style="font-size: 0.8em; color: #ff6b6b; text-decoration: none; border: 1px solid #ff6b6b; padding: 5px 10px; border-radius: 5px; display: inline-block; width: 100%; text-align: center;">
+                                   Cancel Booking
                                 </a>
+
+                            <?php elseif($row['status'] == 'paid'): ?>
+                                <button onclick="alert('Ini nanti download E-Ticket PDF')" 
+                                        style="background: transparent; border: 1px solid #00f2fe; color: #00f2fe; padding: 8px 20px; border-radius: 5px; cursor: pointer; width: 100%;">
+                                    View E-Ticket 🎫
+                                </button>
+                            
+                            <?php elseif($row['status'] == 'cancelled'): ?>
+                                <span style="color: #666; font-size: 0.8em;">Ticket Inactive</span>
                             <?php endif; ?>
                         </div>
 
@@ -132,6 +143,7 @@ $result = mysqli_query($conn, $query);
                 <div class="promo-card" style="text-align: center; padding: 50px;">
                     <h3>No tickets yet 🍃</h3>
                     <p>You haven't booked any flights.</p>
+                    <a href="dashboard.php" class="btn-search" style="margin-top: 20px; width: auto; display: inline-block;">Book Now</a>
                 </div>
             <?php endif; ?>
         </div>

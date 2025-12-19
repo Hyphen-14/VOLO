@@ -21,7 +21,7 @@ $insert_payment = mysqli_query($conn, "
 ");
 
 if ($insert_payment) {
-    // 2. UPDATE STATUS BOOKING (FIXED COLUMN NAME)
+    // 2. UPDATE STATUS BOOKING 
     // Dulu: WHERE id = ...
     // Sekarang: WHERE booking_id = ...
     $update_booking = mysqli_query($conn, "

@@ -46,6 +46,11 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promotions");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VOLO - Dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,10 +61,15 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promotions");
         </div>
         <div class="nav-links">
             <a href="my_tickets.php">My Booking</a>
-            <a href="#">Promo</a>
+            <a href="#special-deals">Promo</a> 
+            
             <span style="color:rgba(255,255,255,0.3); margin:0 15px;">|</span>
-            <span style="font-weight:bold; color:#fff;"><?= ucfirst($nama_user); ?></span>
-            <a href="logout.php" style="color:#ff6b6b;">Logout</a>
+            
+            <a href="settings.php" style="color: #fff; text-decoration: none; font-weight: bold; border-bottom: 1px dashed rgba(255,255,255,0.5);">
+                <?= ucfirst($nama_user); ?> ⚙️
+            </a>
+            
+            <a href="logout.php" style="color:#ff6b6b; margin-left: 15px;">Logout</a>
         </div>
     </nav>
 
@@ -119,7 +129,7 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promotions");
 
     <section class="section-container" style="margin-top: -40px;">
         <h2 class="section-title">Popular Routes 🌟</h2>
-        <div class="grid-3">
+        <div class="grid-3">    
             <?php while($row = mysqli_fetch_assoc($populer_query)): ?>
                 <div class="promo-card" style="position: relative; border-left: 4px solid #00f2fe;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
@@ -145,7 +155,7 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promotions");
         </div>
     </section>
 
-    <section class="section-container">
+    <section class="section-container", id="sepecials-deals">
         <h2 class="section-title">Special Deals 🔥</h2>
         <div class="grid-3">
             <?php while($promo = mysqli_fetch_assoc($promo_query)): ?>
