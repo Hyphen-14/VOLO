@@ -190,14 +190,14 @@ body {
   flex-direction: column;
 }
 
-.admin-dashboard {
+.page-title {
   font-size: 26px;
   font-weight: 700;
   color: #f8fafc;
   margin-bottom: 2px;
 }
 
-.welcome-message {
+.page-subtitle {
   font-size: 14px;
   color: #64748b;
 }
@@ -219,7 +219,6 @@ body {
   border-radius: 12px;
   padding: 10px 18px;
   min-width: 300px;
-  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -228,12 +227,34 @@ body {
   border-color: rgba(255,255,255,0.15);
 }
 
+.search-bar:focus-within {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+}
+
 .search-icon {
   width: 18px;
   height: 18px;
   opacity: 0.5;
+  flex-shrink: 0;
 }
 
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #f8fafc;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: #64748b;
+}
+
+/* Legacy support untuk span (akan dihapus jika sudah tidak dipakai) */
 .search-bar-text {
   font-size: 14px;
   color: #64748b;
@@ -304,8 +325,8 @@ body {
 }
 
 .user-avatar img {
-  width: 50%;
-  height: 50%;
+  width: 15px;
+  height: 15px;
   object-fit: cover;
 }
 
@@ -329,7 +350,7 @@ body {
 .dashboard-content {
   flex: 1;
   padding: 32px;
-  background: #0206175b url("../images/airport-bg.jpg") center / cover no-repeat;
+  background: #020617 url("../images/airport-bg.jpg") center / cover no-repeat;
   background-attachment: fixed;
   position: relative;
   overflow-y: auto;
@@ -341,7 +362,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(2, 6, 23, 0.92) 0%, rgba(15, 23, 42, 0.88) 100%);
+  background: linear-gradient(135deg, rgba(2, 6, 23, 0.92) 0%, rgba(15, 23, 42, 0.88) 2%);
   z-index: 0;
 }
 
@@ -472,6 +493,46 @@ body {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
+.stat-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon-circle.green {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.stat-icon-circle.green img {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(98%) saturate(459%) hue-rotate(81deg) brightness(98%) contrast(90%);
+}
+
+.stat-icon-circle.blue {
+  background: rgba(6, 182, 212, 0.2);
+}
+
+.stat-icon-circle.blue img {
+  filter: brightness(0) saturate(100%) invert(66%) sepia(76%) saturate(1500%) hue-rotate(155deg) brightness(95%) contrast(101%);
+}
+
+.stat-icon-circle.purple {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.stat-icon-circle.purple img {
+  filter: brightness(0) saturate(100%) invert(66%) sepia(76%) saturate(1500%) hue-rotate(155deg) brightness(95%) contrast(101%);
+}
+
+.stat-icon-circle img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Support untuk stat-icon-box (dari dokumen lama) */
 .stat-icon-box {
   width: 55px;
   height: 55px;
@@ -502,7 +563,6 @@ body {
   width: 25px;
   height: 25px;
 }
-
 
 .stat-info h3 {
   font-size: 15px;
@@ -651,5 +711,236 @@ tbody tr:last-child td {
   
   .dashboard-content {
     padding: 20px;
+  }
+}
+
+/* ================= PAGE CONTENT (For other pages) ================= */
+.page-content {
+  flex: 1;
+  padding: 32px;
+  background: #020617 url("../images/airport-bg.jpg") center / cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  overflow-y: auto;
+  min-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.page-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(2, 6, 23, 0.92) 0%, rgba(15, 23, 42, 0.88) 2%);
+  z-index: 0;
+}
+
+/* Content Section */
+.content-section {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 4px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Primary Button */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #06b6d4;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0891b2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+}
+
+.btn-primary svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Data Table Card */
+.data-table-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Data Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.data-table thead tr {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.data-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  padding: 16px 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.2s;
+}
+
+.data-table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.data-table td {
+  padding: 18px 20px;
+  font-size: 14px;
+  color: #e5e7eb;
+  border-bottom: none;
+}
+
+.data-table .font-semibold {
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+/* Status Badge for Active/Cancelled */
+.status-badge.active {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #94a3b8;
+}
+
+.btn-icon:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #06b6d4;
+  transform: translateY(-2px);
+}
+
+.btn-icon-danger {
+  color: #94a3b8;
+}
+
+.btn-icon-danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive for Page Content */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 20px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .data-table-card {
+    overflow-x: auto;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 12px 16px;
+    font-size: 13px;
   }
 }

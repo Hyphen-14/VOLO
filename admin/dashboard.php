@@ -14,7 +14,57 @@
 
     <div class="main-area">
 
-        <?php include __DIR__ . '/partials/header.html'; ?>
+        <header class="admin-header">
+
+        <!-- LEFT -->
+        <div class="header-left">
+            <h1 class="page-title">Admin Dashboard</h1>
+            <p class="page-subtitle">Welcome back, Administrator</p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="header-right">
+
+            <!-- SEARCH -->
+            <div class="search-bar">
+                <img
+                    src="/volo/admin/assets/images/magnifying-glass-search.png"
+                    alt="Search"
+                    class="search-icon"
+                />
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Search..."
+                    name="search"
+                />
+            </div>
+
+            <!-- NOTIFICATION -->
+            <div class="notification">
+                <img
+                    src="/volo/admin/assets/images/notification.png"
+                    alt="Notifications"
+                />
+                <span class="notification-dot"></span>
+            </div>
+
+            <!-- USER -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img
+                        src="/volo/admin/assets/images/user-profile.png"
+                        alt="User"
+                    />
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Admin User</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+
+        </div>
+        </header>
 
         <!-- ===== DASHBOARD CONTENT ===== -->
         <main class="dashboard-content">
