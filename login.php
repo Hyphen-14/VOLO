@@ -31,7 +31,7 @@ if(isset($_POST['login'])) {
             
             // Redirect sesuai role (Bonus Logic)
             if($data['role'] == 'admin'){
-                header("Location: admin/index.php"); // Siapa tau nanti ada folder admin
+                header("Location: admin/dashboard.php"); // Siapa tau nanti ada folder admin
             } else {
                 header("Location: dashboard.php");
             }

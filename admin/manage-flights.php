@@ -10,7 +10,97 @@
 
 <div class="admin-layout">
 
-    <?php include __DIR__ . '/partials/sidebar.html'; ?>
+    
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+        <div class="sidebar-brand">
+            <div class="brand-icon">
+            <img src="/volo/admin/assets/images/airplane.png" alt="VOLO">
+            </div>
+            <div class="brand-text">
+            <span class="brand-name">VOLO</span>
+            <span class="brand-sub">Admin Panel</span>
+            </div>
+        </div>
+
+        <!-- NAV -->
+        <nav class="sidebar-nav">
+
+            <a href="/volo/admin/dashboard.php" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/dashboard.png" alt="Dashboard">
+            </span>
+            <span class="nav-text">Dashboard</span>
+            </a>
+
+            <a href="/volo/admin/manage-flights.php" class="nav-item active">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/airplane.png" alt="Manage Flights">
+            </span>
+            <span class="nav-text">Manage Flights</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/airlines.png" alt="Airlines">
+            </span>
+            <span class="nav-text">Airlines</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/airports.png" alt="Airports">
+            </span>
+            <span class="nav-text">Airports</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/aircraft-and-seat.png" alt="Aircraft & Seats">
+            </span>
+            <span class="nav-text">Aircraft & Seats</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/ticket-prices.png" alt="Ticket Prices">
+            </span>
+            <span class="nav-text">Ticket Prices</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/promotions.png" alt="Promotions">
+            </span>
+            <span class="nav-text">Promotions</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/booking.png" alt="Bookings">
+            </span>
+            <span class="nav-text">Bookings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/payment.png" alt="Payments">
+            </span>
+            <span class="nav-text">Payments</span>
+            </a>
+
+        </nav>
+
+        <!-- LOGOUT -->
+        <a href="/volo/logout.php" class="logout-btn">
+            <span class="nav-icon">
+                <img src="/volo/admin/assets/images/logout.png" alt="Logout">
+            </span>
+            <span>Logout</span>
+        </a>
+
+    </aside>
 
     <div class="main-area">
 
