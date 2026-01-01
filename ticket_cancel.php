@@ -2,57 +2,54 @@
 session_start();
 include 'config/koneksi.php';
 
-// 1. CEK LOGIN
 if (!isset($_SESSION['status']) || $_SESSION['status'] != "login") {
     header("Location: login.php");
     exit;
 }
 
-// 2. TANGKAP ID BOOKING
 $booking_id = $_GET['id'];
-$user_id = $_SESSION['user_id']; // ID User yang sedang login
+$user_id = $_SESSION['user_id']; 
 
-// 3. SECURITY CHECK & UPDATE
-// Kita update status jadi 'cancelled' HANYA JIKA id booking cocok DAN user_id nya cocok.
-// Jadi hacker ga bisa cancel tiket orang lain.
+// LOGIKA BARU: Hanya bisa cancel jika statusnya 'waiting_payment'
+// Kalau sudah 'paid', tidak bisa cancel sembarangan (harus refund process)
 mysqli_begin_transaction($conn);
 
 try {
-    // Cancel booking
+    // 1. Cek status dulu
+    $cekStatus = mysqli_query($conn, "SELECT status FROM bookings WHERE booking_id = '$booking_id' AND user_id = '$user_id'");
+    $data = mysqli_fetch_assoc($cekStatus);
+
+    if (!$data) {
+        throw new Exception("Booking not found.");
+    }
+
+    if ($data['status'] == 'cancelled') {
+        throw new Exception("Booking is already cancelled.");
+    }
+
+    if ($data['status'] == 'paid') {
+        throw new Exception("Ticket is already PAID. Cannot cancel directly. Please contact support for refund.");
+    }
+
+    // 2. Proses Cancel (Hanya untuk Waiting Payment)
     mysqli_query($conn, "
         UPDATE bookings 
         SET status = 'cancelled'
-        WHERE id = '$booking_id' AND user_id = '$user_id'
+        WHERE booking_id = '$booking_id' AND user_id = '$user_id'
     ");
-
-    if (mysqli_affected_rows($conn) == 0) {
-        throw new Exception("Booking not found or access denied");
-    }
-
-    // Sinkronisasi payment
-    $cekPayment = mysqli_query($conn, "
-        SELECT id FROM payments WHERE booking_id = '$booking_id'
-    ");
-
-    if (mysqli_num_rows($cekPayment) > 0) {
-        mysqli_query($conn, "
-            UPDATE payments SET status='failed'
-            WHERE booking_id='$booking_id'
-        ");
-    } else {
-        mysqli_query($conn, "
-            INSERT INTO payments (booking_id, status)
-            VALUES ('$booking_id', 'failed')
-        ");
-    }
 
     mysqli_commit($conn);
 
-    echo "<script>alert('Ticket & payment cancelled successfully.'); 
-          window.location='my_tickets.php';</script>";
+    echo "<script>
+            alert('Booking has been cancelled.'); 
+            window.location='my_tickets.php';
+          </script>";
 
 } catch (Exception $e) {
     mysqli_rollback($conn);
-    echo "<script>alert('Failed to cancel ticket!');
-          window.location='my_tickets.php';</script>";
+    echo "<script>
+            alert('" . $e->getMessage() . "');
+            window.location='my_tickets.php';
+          </script>";
 }
+?>

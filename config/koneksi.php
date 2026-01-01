@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = ""; // Kosongkan jika pakai XAMPP default
-$db   = "volo_db";
+$db   = "volo_enterprise";
 
 // Melakukan koneksi ke MySQL
 $conn = mysqli_connect($host, $user, $pass, $db);
