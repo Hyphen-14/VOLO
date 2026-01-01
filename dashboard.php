@@ -230,5 +230,3 @@ $promo_query = mysqli_query($conn, "SELECT * FROM promos");
     </script>
 </body>
 </html>
-message.txt
-12 KB
