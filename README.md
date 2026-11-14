@@ -9,7 +9,7 @@ Mengusung tema **"Aero-Glass"** dengan antarmuka modern dan responsif.
 | :--- | :--- | :--- |
 | **Core Logic (Lead)** | Alur Booking, Session, Search Logic | **Yasin** |
 | **Frontend & Assets** | UI/UX, CSS, Responsive, Asset Management | **Keenan** |
-| **Admin & Database** | CRUD Rute, Manajemen User, Laporan | **Rayner** |
+| **Admin & Database** | Database Management, Manajemen User, Laporan | **Rayner** |
 
 ## 📂 Struktur Folder Project
 
